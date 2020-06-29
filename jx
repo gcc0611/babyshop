@@ -1,0 +1,397 @@
+
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : gc
+Source Server Version : 80014
+Source Host           : localhost:3306
+Source Database       : jx_0603
+
+Target Server Type    : MYSQL
+Target Server Version : 80014
+File Encoding         : 65001
+
+Date: 2019-06-12 17:15:36
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `dept_p`
+-- ----------------------------
+DROP TABLE IF EXISTS `dept_p`;
+CREATE TABLE `dept_p` (
+  `DEPT_ID` varchar(40) NOT NULL,
+  `DEPT_NAME` varchar(40) DEFAULT NULL,
+  `PARENT_ID` varchar(40) DEFAULT NULL,
+  `STATE` int(11) DEFAULT NULL COMMENT '1代表启用，0代表停用，默认为1',
+  PRIMARY KEY (`DEPT_ID`),
+  KEY `FK77FB84D6555D1B33` (`PARENT_ID`),
+  CONSTRAINT `FK77FB84D6555D1B33` FOREIGN KEY (`PARENT_ID`) REFERENCES `dept_p` (`DEPT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dept_p
+-- ----------------------------
+INSERT INTO `dept_p` VALUES ('100', '杰信商贸集团', null, '1');
+INSERT INTO `dept_p` VALUES ('3d00290a-1af0-4c28-853e-29fbf96a2722', '市场部', '100', '1');
+INSERT INTO `dept_p` VALUES ('4028827c4fb6202a014fb6209c730000', '杰信总裁办', null, '1');
+INSERT INTO `dept_p` VALUES ('4028827c4fb633bd014fb64467470000', '杰信', null, null);
+INSERT INTO `dept_p` VALUES ('4028827c4fb645b0014fb64668550000', '船运部cgx', '4028827c4fb6202a014fb6209c730000', '1');
+INSERT INTO `dept_p` VALUES ('73f3fa2f-66a2-4d16-8306-78d89003031b', '网络部', '100', '1');
+INSERT INTO `dept_p` VALUES ('97f88a8c-90fc-4d52-aed7-2046f62fb498', '总经办', '100', '1');
+INSERT INTO `dept_p` VALUES ('aeb1c7d3-9a54-4f73-b0ec-0325b83aef45', '船运部', '100', '1');
+
+-- ----------------------------
+-- Table structure for `module_p`
+-- ----------------------------
+DROP TABLE IF EXISTS `module_p`;
+CREATE TABLE `module_p` (
+  `MODULE_ID` varchar(40) NOT NULL,
+  `PARENT_ID` varchar(40) DEFAULT NULL,
+  `PARENT_NAME` varchar(100) DEFAULT NULL,
+  `NAME` varchar(100) DEFAULT NULL,
+  `LAYER_NUM` int(11) DEFAULT NULL,
+  `IS_LEAF` int(11) DEFAULT NULL,
+  `ICO` varchar(20) DEFAULT NULL,
+  `CPERMISSION` varchar(20) DEFAULT NULL,
+  `CURL` varchar(200) DEFAULT NULL,
+  `CTYPE` int(11) DEFAULT NULL COMMENT '1主菜单/2左侧菜单/3按钮/4链接/5状态',
+  `STATE` int(11) DEFAULT NULL COMMENT '1启用0停用',
+  `BELONG` varchar(100) DEFAULT NULL COMMENT '按钮时，可以标识其归属，\n            查询某页面按钮时就用此属性查询',
+  `CWHICH` varchar(20) DEFAULT NULL,
+  `QUOTE_NUM` int(11) DEFAULT NULL,
+  `REMARK` varchar(100) DEFAULT NULL,
+  `ORDER_NO` int(11) DEFAULT NULL,
+  `CREATE_BY` varchar(40) DEFAULT NULL,
+  `CREATE_DEPT` varchar(40) DEFAULT NULL,
+  `CREATE_TIME` timestamp NULL DEFAULT '2018-06-06 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `UPDATE_BY` varchar(40) DEFAULT NULL,
+  `UPDATE_TIME` timestamp NULL DEFAULT '2017-06-06 00:00:00',
+  PRIMARY KEY (`MODULE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of module_p
+-- ----------------------------
+INSERT INTO `module_p` VALUES ('1', null, null, '系统首页', '1', '0', null, '系统首页', 'home', '0', '1', null, null, null, 'home', '1', null, null, '2015-07-21 23:39:13', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('101', '1', '系统首页', '我的留言板', '2', '0', null, '我的留言板', null, '1', '1', null, null, null, 'home', '6', null, null, '2015-07-22 00:14:13', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('102', '1', '系统首页', '我的代办任务', '2', '0', null, '我的代办任务', null, '1', '1', null, null, null, 'home', '7', null, null, '2015-07-22 00:14:14', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('103', '1', '系统首页', '请假单管理', '2', '0', null, '请假单管理', null, '1', '1', null, null, null, 'home', '8', null, null, '2015-07-22 00:14:16', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('2', null, null, '货运管理', '1', '0', null, '货运管理', 'cargo', '0', '1', null, null, null, 'cargo', '2', null, null, '2015-07-21 23:39:20', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('201', '2', '货运管理', '购销合同', '2', '0', null, '购销合同', 'cargo/contractAction_list', '1', '1', null, null, null, 'cargo', '9', null, null, '2015-07-25 10:00:33', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('202', '2', '货运管理', '出货表', '2', '0', null, '出货表', 'cargo/outProductAction_toedit', '1', '1', null, null, null, 'cargo', '10', null, null, '2015-07-25 10:00:43', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('203', '2', '货运管理', '合同管理', '2', '0', null, '合同管理', 'cargo/export/exportAction_contractList', '1', '1', null, null, null, 'cargo', '11', null, null, '2015-07-25 10:00:54', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('204', '2', '货运管理', '出口报运', '2', '0', null, '出口报运', 'cargo/export/exportAction_list.action', '1', '1', null, null, null, 'cargo', '12', null, null, '2015-07-25 10:00:57', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('205', '2', '货运管理', '装箱管理', '2', '0', null, '装箱管理', 'cargo/export/packingListAction_list', '1', '1', null, null, null, 'cargo', '22', null, null, '2015-07-30 16:18:45', null, '2015-07-30 16:13:54');
+INSERT INTO `module_p` VALUES ('206', '2', '货运管理', '委托管理', '2', '0', null, '委托管理', 'cargo/export/shippingOrderAction_list', '1', '1', null, null, null, 'cargo', '23', null, null, '2015-07-30 16:13:54', null, '2015-07-30 16:13:54');
+INSERT INTO `module_p` VALUES ('207', '2', '货运管理', '发票管理', '2', '0', null, '发票管理', 'cargo/export/invoiceAction_list', '1', '1', null, null, null, 'cargo', '24', null, null, '2015-07-30 16:13:54', null, '2015-07-30 16:13:54');
+INSERT INTO `module_p` VALUES ('208', '2', '货运管理', '财务管理', '2', '0', null, '财务管理', 'cargo/export/financeAction_list', '1', '1', null, null, null, 'cargo', '25', null, null, '2015-07-30 16:13:54', null, '2015-07-30 16:13:54');
+INSERT INTO `module_p` VALUES ('3', null, null, '统计分析', '1', '0', null, '统计分析', 'stat', '0', '1', null, null, null, 'stat', '3', null, null, '2015-07-21 23:39:25', null, '2012-11-11 00:00:00');
+INSERT INTO `module_p` VALUES ('301', '3', '统计分析', '生产厂家销售情况', '2', '0', null, '生产厂家销售情况', null, '1', '1', null, null, null, 'stat', '13', null, null, '2015-07-22 00:13:58', null, '2012-11-11 00:00:00');
+INSERT INTO `module_p` VALUES ('302', '3', '统计分析', '产品销售排行', '2', '0', null, '产品销售排行', null, '1', '1', null, null, null, 'stat', '14', null, null, '2015-07-22 00:13:59', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('303', '3', '统计分析', '系统访问压力图', '2', '0', null, '系统访问压力图', null, '1', '1', null, null, null, 'stat', '15', null, null, '2015-07-22 00:13:59', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('4', null, null, '基础信息', '1', '0', null, '基础信息', 'baseinfo', '0', '1', null, null, null, 'baseinfo', '4', null, null, '2015-07-21 23:39:30', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('401', '4', '基础信息', '系统代码', '2', '0', null, '系统代码', null, '1', '1', null, null, null, 'baseinfo', '16', null, null, '2015-07-22 00:13:53', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('402', '4', '基础信息', '厂家信息', '2', '0', null, '厂家信息', null, '1', '1', null, null, null, 'baseinfo', '17', null, null, '2015-07-22 00:13:55', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('4028827c4fbbba20014fbbbc80570000', null, null, '44', '44', null, null, '44', '44', '3', '1', '44', '44', null, '44', '44', null, null, '2015-09-11 17:28:57', null, '2015-09-11 17:28:57');
+INSERT INTO `module_p` VALUES ('5', null, null, '系统管理', '1', '0', null, '系统管理', 'sysadmin', '0', '1', null, null, null, 'sysadmin', '5', null, null, '2015-07-21 23:39:37', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('501', '5', '系统管理', '部门管理', '2', '0', null, '部门管理', 'sysadmin/deptAction_list', '1', '1', null, null, null, 'sysadmin', '18', null, null, '2015-07-22 00:13:45', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('502', '5', '系统管理', '用户管理', '2', '0', null, '用户管理', 'sysadmin/userAction_list', '1', '1', null, null, null, 'sysadmin', '19', null, null, '2015-07-22 00:13:46', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('503', '5', '系统管理', '角色管理', '2', '0', null, '角色管理', 'sysadmin/roleAction_list', '1', '1', null, null, null, 'sysadmin', '20', null, null, '2015-07-22 00:13:47', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('504', '5', '系统管理', '模块管理', '2', '0', null, '模块管理', 'sysadmin/moduleAction_list', '1', '1', null, null, null, 'sysadmin', '21', null, null, '2015-07-22 00:13:50', null, '2012-12-12 00:00:00');
+INSERT INTO `module_p` VALUES ('6', null, null, '流程管理', '1', '0', null, '流程管理', 'activiti', '0', '1', null, null, null, 'activiti', '60', null, null, '2015-08-01 23:41:55', null, '2015-08-01 23:41:55');
+INSERT INTO `module_p` VALUES ('601', '6', '流程管理', '部署流程', '2', '0', null, '部署流程', 'flow/flowAction_deploy.action', '1', '1', null, null, null, 'activiti', '61', null, null, '2015-08-01 23:48:16', null, '2015-08-01 23:48:16');
+INSERT INTO `module_p` VALUES ('602', '6', '流程管理', '查询流程', '2', '0', null, '查询流程', 'flow/flowAction_queryProcessDefinition.action', '1', '1', null, null, null, 'activiti', '62', null, null, '2015-08-01 23:48:25', null, '2015-08-01 23:48:25');
+INSERT INTO `module_p` VALUES ('603', '6', '流程管理', '添加采购单', '2', '0', null, '添加采购单', 'flow/orderFlowAction_addOrder.action', '1', '1', null, null, null, 'activiti', '63', null, null, '2015-08-02 23:50:13', null, '2015-08-02 23:50:13');
+INSERT INTO `module_p` VALUES ('604', '6', '流程管理', '查询采购单', '2', '0', null, '查询采购单', 'flow/orderFlowAction_orderTaskList.action', '1', '1', null, null, null, 'activiti', '64', null, null, '2015-08-03 00:22:09', null, '2015-08-03 00:22:09');
+
+-- ----------------------------
+-- Table structure for `role_module_p`
+-- ----------------------------
+DROP TABLE IF EXISTS `role_module_p`;
+CREATE TABLE `role_module_p` (
+  `ROLE_ID` varchar(255) NOT NULL,
+  `MODULE_ID` varchar(255) NOT NULL,
+  PRIMARY KEY (`MODULE_ID`,`ROLE_ID`),
+  KEY `FKE18198E62C0E8218` (`ROLE_ID`),
+  KEY `FKE18198E6E965A6D8` (`MODULE_ID`),
+  CONSTRAINT `FKE18198E62C0E8218` FOREIGN KEY (`ROLE_ID`) REFERENCES `role_p` (`ROLE_ID`),
+  CONSTRAINT `FKE18198E6E965A6D8` FOREIGN KEY (`MODULE_ID`) REFERENCES `module_p` (`MODULE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of role_module_p
+-- ----------------------------
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '1');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '101');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '102');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '103');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '2');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '201');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '202');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '203');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '204');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '205');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '206');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '207');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '208');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '3');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '301');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '302');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '303');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '4');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '401');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '402');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '4028827c4fbbba20014fbbbc80570000');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '5');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '501');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '502');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '503');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '504');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '6');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '601');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '602');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '1');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '101');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '102');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '103');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '2');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '201');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '202');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '203');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '204');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '205');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '206');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '207');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '208');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '4');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '401');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '5');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '501');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '502');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '503');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0004', '1');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0004', '101');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0004', '102');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0004', '103');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0004', '2');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0004', '201');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0004', '202');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0004', '203');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0004', '204');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0004', '205');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0004', '206');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0004', '207');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '1');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '101');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '102');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '103');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '2');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '201');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '202');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '203');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '204');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '205');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '206');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '207');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '208');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '3');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '301');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '302');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '303');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '4');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '401');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '402');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '4028827c4fbbba20014fbbbc80570000');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '5');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '501');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '502');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '503');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '504');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '6');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '601');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '602');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '603');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '604');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '1');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '101');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '102');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '103');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '2');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '201');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '202');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '203');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '204');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '205');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '206');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '207');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '208');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '3');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '301');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '302');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '303');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '4');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '401');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '402');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '5');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '501');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '502');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '503');
+INSERT INTO `role_module_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '504');
+
+-- ----------------------------
+-- Table structure for `role_p`
+-- ----------------------------
+DROP TABLE IF EXISTS `role_p`;
+CREATE TABLE `role_p` (
+  `ROLE_ID` varchar(40) NOT NULL,
+  `NAME` varchar(30) DEFAULT NULL,
+  `REMARK` varchar(200) DEFAULT NULL,
+  `ORDER_NO` int(11) DEFAULT NULL,
+  `CREATE_BY` varchar(40) DEFAULT NULL,
+  `CREATE_DEPT` varchar(40) DEFAULT NULL,
+  `CREATE_TIME` timestamp NULL DEFAULT '2018-03-02 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `UPDATE_BY` varchar(40) DEFAULT NULL,
+  `UPDATE_TIME` timestamp NULL DEFAULT '2018-02-02 00:00:00',
+  PRIMARY KEY (`ROLE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of role_p
+-- ----------------------------
+INSERT INTO `role_p` VALUES ('4028a1c34ec2e5c8014ec2ebf8430001', '船运专员', '船运专员', '9', null, null, '2015-09-11 16:59:44', null, '2015-07-25 09:55:21');
+INSERT INTO `role_p` VALUES ('4028a1c34ec2e5c8014ec2ec38cc0002', '船运经理', '船运经理', '10', null, null, '2015-09-11 16:59:47', null, '2015-07-25 09:55:37');
+INSERT INTO `role_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0000', '装箱专员', '装箱专员', '11', null, null, '2015-09-11 16:59:49', null, '2015-07-31 14:49:21');
+INSERT INTO `role_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0001', '总经理', 'sysadmin', '1', null, null, '2015-09-11 16:58:57', null, '2015-07-20 00:00:00');
+INSERT INTO `role_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0002', '销售经理', 'salemanager', '2', null, null, '2015-09-11 16:58:04', null, '2015-07-20 00:00:00');
+INSERT INTO `role_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0003', '合同专责', 'contract', '3', null, null, '2015-09-11 16:58:00', null, '2015-07-20 00:00:00');
+INSERT INTO `role_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0004', '销售专责', 'sale', '4', null, null, '2015-09-11 16:57:47', null, '2015-07-20 00:00:00');
+INSERT INTO `role_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0005', '报运经理', 'transportation', '5', null, null, '2015-09-11 16:57:42', null, '2015-07-20 00:00:00');
+INSERT INTO `role_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0006', '报运专责', 'trans', '6', null, null, '2015-09-11 16:57:37', null, '2015-07-20 00:00:00');
+INSERT INTO `role_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0007', '财务经理', 'financial', '7', null, null, '2015-09-11 16:57:32', null, '2015-07-20 00:00:00');
+INSERT INTO `role_p` VALUES ('4028a1cd4ee2d9d6014ee2df4c6a0008', '财务专责', 'fin', '8', null, null, '2015-09-11 16:57:25', null, '2015-07-20 00:00:00');
+
+-- ----------------------------
+-- Table structure for `role_user_p`
+-- ----------------------------
+DROP TABLE IF EXISTS `role_user_p`;
+CREATE TABLE `role_user_p` (
+  `USER_ID` varchar(255) NOT NULL,
+  `ROLE_ID` varchar(255) NOT NULL,
+  PRIMARY KEY (`ROLE_ID`,`USER_ID`),
+  KEY `FK4F1B5CC52C0E8218` (`ROLE_ID`),
+  KEY `FK4F1B5CC5D13945F8` (`USER_ID`),
+  CONSTRAINT `FK4F1B5CC52C0E8218` FOREIGN KEY (`ROLE_ID`) REFERENCES `role_p` (`ROLE_ID`),
+  CONSTRAINT `FK4F1B5CC5D13945F8` FOREIGN KEY (`USER_ID`) REFERENCES `user_p` (`USER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of role_user_p
+-- ----------------------------
+INSERT INTO `role_user_p` VALUES ('acde96ad-32e9-4c9c-8555-a90a282193a1', '4028a1cd4ee2d9d6014ee2df4c6a0001');
+INSERT INTO `role_user_p` VALUES ('671cf074-d849-4157-93e6-6024d3dcba47', '4028a1cd4ee2d9d6014ee2df4c6a0002');
+INSERT INTO `role_user_p` VALUES ('acde96ad-32e9-4c9c-8555-a90a282193a1', '4028a1cd4ee2d9d6014ee2df4c6a0002');
+INSERT INTO `role_user_p` VALUES ('d583ce5d-49d1-4c37-b7d8-fab189e62329', '4028a1cd4ee2d9d6014ee2df4c6a0004');
+INSERT INTO `role_user_p` VALUES ('18077bdb-8dd3-4aae-95a2-078c963f8416', '4028a1cd4ee2d9d6014ee2df4c6a0007');
+INSERT INTO `role_user_p` VALUES ('290e5d08-8992-4c7b-95fc-dbbe7b592e14', '4028a1cd4ee2d9d6014ee2df4c6a0007');
+INSERT INTO `role_user_p` VALUES ('424b2d01-d812-4f30-be40-dcda14110118', '4028a1cd4ee2d9d6014ee2df4c6a0007');
+INSERT INTO `role_user_p` VALUES ('71a5a695-0ba5-4f0d-a0b5-0a304efde944', '4028a1cd4ee2d9d6014ee2df4c6a0007');
+INSERT INTO `role_user_p` VALUES ('9fe270f8-f682-4126-92aa-604d945c95f1', '4028a1cd4ee2d9d6014ee2df4c6a0007');
+INSERT INTO `role_user_p` VALUES ('a4e6e173-39dc-4b2d-a089-6eb92d117682', '4028a1cd4ee2d9d6014ee2df4c6a0007');
+INSERT INTO `role_user_p` VALUES ('acde96ad-32e9-4c9c-8555-a90a282193a0', '4028a1cd4ee2d9d6014ee2df4c6a0007');
+INSERT INTO `role_user_p` VALUES ('b11c3da4-4760-4f4f-9913-78f7749ffcf9', '4028a1cd4ee2d9d6014ee2df4c6a0007');
+INSERT INTO `role_user_p` VALUES ('b891b14b-1316-4a79-8b88-695be1e3f42f', '4028a1cd4ee2d9d6014ee2df4c6a0007');
+INSERT INTO `role_user_p` VALUES ('e0de22fe-2c50-4216-ad75-ed0494d2dc92', '4028a1cd4ee2d9d6014ee2df4c6a0007');
+INSERT INTO `role_user_p` VALUES ('ee720667-5373-4a36-996b-fded2c257f48', '4028a1cd4ee2d9d6014ee2df4c6a0007');
+
+-- ----------------------------
+-- Table structure for `user_info_p`
+-- ----------------------------
+DROP TABLE IF EXISTS `user_info_p`;
+CREATE TABLE `user_info_p` (
+  `USER_INFO_ID` varchar(40) NOT NULL,
+  `NAME` varchar(20) DEFAULT NULL,
+  `MANAGER_ID` varchar(40) DEFAULT NULL,
+  `JOIN_DATE` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `SALARY` decimal(8,2) DEFAULT NULL,
+  `BIRTHDAY` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `GENDER` char(1) DEFAULT NULL,
+  `STATION` varchar(20) DEFAULT NULL,
+  `TELEPHONE` varchar(100) DEFAULT NULL,
+  `DEGREE` int(11) DEFAULT NULL COMMENT '0-超级管理员\n            1-跨部门跨人员\n            2-管理所有下属部门和人员\n            3-管理本部门\n            4-普通员工\n            \n            \n            0作为内部控制只对sysdebug，用户不能进行添加',
+  `REMARK` varchar(600) DEFAULT NULL,
+  `ORDER_NO` int(11) DEFAULT NULL,
+  `CREATE_BY` varchar(40) DEFAULT NULL COMMENT '登录人编号',
+  `CREATE_DEPT` varchar(40) DEFAULT NULL COMMENT '登录人所属部门编号',
+  `CREATE_TIME` timestamp NULL DEFAULT '2017-06-05 00:00:00',
+  `UPDATE_BY` varchar(40) DEFAULT NULL,
+  `UPDATE_TIME` timestamp NULL DEFAULT '2018-06-05 00:00:00',
+  PRIMARY KEY (`USER_INFO_ID`),
+  KEY `FK2BF43F36EB6FED6` (`MANAGER_ID`),
+  CONSTRAINT `FK2BF43F36EB6FED6` FOREIGN KEY (`MANAGER_ID`) REFERENCES `user_p` (`USER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user_info_p
+-- ----------------------------
+INSERT INTO `user_info_p` VALUES ('002108e2-9a10-4510-9683-8d8fd1d374ef', 'lw', 'b891b14b-1316-4a79-8b88-695be1e3f42f', '2015-10-06 00:00:00', '100.00', '2015-10-13 00:00:00', '1', 'lw', '3243234', '4', 'lw', '12', null, null, '2015-10-18 17:00:53', null, '2015-10-18 17:00:53');
+INSERT INTO `user_info_p` VALUES ('18077bdb-8dd3-4aae-95a2-078c963f8416', '李四', null, '2015-09-10 00:00:00', '222.00', '2015-09-01 00:00:00', '1', '222', '222', '4', '222', '222', null, null, '2015-09-24 00:14:23', null, '2015-09-24 00:14:23');
+INSERT INTO `user_info_p` VALUES ('254488b1-37f0-4741-8eaf-3ababe15a3b2', 'ss', '671cf074-d849-4157-93e6-6024d3dcba47', '2015-09-14 00:00:00', '122.00', '2015-09-08 00:00:00', '0', 's', '112', '4', 'a', '11', null, null, '2015-09-14 16:49:30', null, '2015-09-14 16:49:30');
+INSERT INTO `user_info_p` VALUES ('290e5d08-8992-4c7b-95fc-dbbe7b592e14', '赵六', 'acde96ad-32e9-4c9c-8555-a90a282193a1', '2015-10-07 00:00:00', '200.00', '2015-10-27 00:00:00', '1', '拍电影', '4354354354', '4', '拍得很好', '13', null, null, '2015-10-30 14:51:17', null, '2015-10-30 14:51:17');
+INSERT INTO `user_info_p` VALUES ('424b2d01-d812-4f30-be40-dcda14110118', 'J0724', '18077bdb-8dd3-4aae-95a2-078c963f8416', '2015-10-20 00:00:00', '444.00', '2015-10-12 00:00:00', '0', 'J0724', '3432', '4', 'dd', '13', null, null, '2015-10-21 10:47:24', null, '2015-10-21 10:47:24');
+INSERT INTO `user_info_p` VALUES ('671cf074-d849-4157-93e6-6024d3dcba47', 'A', 'acde96ad-32e9-4c9c-8555-a90a282193a0', '2015-09-08 00:00:00', '111111.00', '2015-08-31 00:00:00', '1', 'A', '435435', '4', 'A', '1', null, null, '2015-09-14 09:36:37', null, '2015-09-14 09:36:37');
+INSERT INTO `user_info_p` VALUES ('71a5a695-0ba5-4f0d-a0b5-0a304efde944', 'J0723', '18077bdb-8dd3-4aae-95a2-078c963f8416', '2015-10-05 00:00:00', '465464.00', '2015-10-26 00:00:00', '1', 'J0723', '32432', '4', 'q', '12', null, null, '2015-10-21 10:46:29', null, '2015-10-21 10:46:29');
+INSERT INTO `user_info_p` VALUES ('9fe270f8-f682-4126-92aa-604d945c95f1', '张三', null, '2015-09-16 00:00:00', '1111.00', '2015-08-31 00:00:00', '1', '111', '111', '4', '111', '111', null, null, '2015-09-24 00:13:40', null, '2015-09-24 00:13:40');
+INSERT INTO `user_info_p` VALUES ('a4e6e173-39dc-4b2d-a089-6eb92d117682', 'asd', '671cf074-d849-4157-93e6-6024d3dcba47', '2015-09-01 00:00:00', '3333.00', '2015-09-29 00:00:00', '1', 'qq', '123', '4', 'qqq', '2', null, null, '2015-09-24 11:41:03', null, '2015-09-24 11:41:03');
+INSERT INTO `user_info_p` VALUES ('ac151669-0895-4e3e-b730-71dc3f683c13', 'gcc', '002108e2-9a10-4510-9683-8d8fd1d374ef', '2019-06-04 00:00:00', '8000.00', '2015-05-31 00:00:00', '1', '12', '1221', '0', '11', '231', null, null, '2019-06-06 16:23:20', null, '2019-06-06 16:23:20');
+INSERT INTO `user_info_p` VALUES ('acde96ad-32e9-4c9c-8555-a90a282193a0', '小娇', null, '2015-09-14 17:05:20', '20000.00', '2015-09-10 00:00:00', '0', '服务员', '32543223', '1', '要提高服务质量', '1', null, null, '2015-09-11 11:15:34', null, '2015-09-11 11:15:34');
+INSERT INTO `user_info_p` VALUES ('acde96ad-32e9-4c9c-8555-a90a282193a1', 'cgx', null, '2015-09-14 08:28:27', null, '1981-12-12 00:00:00', null, null, null, '4', null, null, null, null, '2012-12-12 00:00:00', null, '2012-12-12 00:00:00');
+INSERT INTO `user_info_p` VALUES ('b11c3da4-4760-4f4f-9913-78f7749ffcf9', 'J0725', '18077bdb-8dd3-4aae-95a2-078c963f8416', '2015-10-06 00:00:00', '555.00', '2015-10-19 00:00:00', '0', 'J0725', '5464', '3', 'qqq', '14', null, null, '2015-10-21 10:48:11', null, '2015-10-21 10:48:11');
+INSERT INTO `user_info_p` VALUES ('b891b14b-1316-4a79-8b88-695be1e3f42f', '阿娇', 'acde96ad-32e9-4c9c-8555-a90a282193a1', '2015-09-02 00:00:00', '2000.00', '2015-09-08 00:00:00', '0', '拍电影', '333', '4', '333', '333', null, null, '2015-09-24 11:37:10', null, '2015-09-24 11:37:10');
+INSERT INTO `user_info_p` VALUES ('cab9cc26-3911-436a-b470-79373de4be22', '小陈', 'acde96ad-32e9-4c9c-8555-a90a282193a0', '2015-09-08 00:00:00', '1000.00', '2015-09-22 00:00:00', '1', '拍戏', '222', '4', '2222222', '22', null, null, '2015-09-24 11:35:56', null, '2015-09-24 11:35:56');
+INSERT INTO `user_info_p` VALUES ('d583ce5d-49d1-4c37-b7d8-fab189e62329', 'B', 'acde96ad-32e9-4c9c-8555-a90a282193a1', '2015-09-14 17:02:46', '11111.00', '2015-09-15 00:00:00', '1', 'B', '54654634', '3', 'B', '1', null, null, '2015-09-14 16:35:05', null, '2015-09-14 16:35:05');
+INSERT INTO `user_info_p` VALUES ('e0de22fe-2c50-4216-ad75-ed0494d2dc92', '小陈', '18077bdb-8dd3-4aae-95a2-078c963f8416', '2015-09-07 00:00:00', '2222.00', '2015-09-08 00:00:00', '1', '拍片', '2', '4', '22', '2', null, null, '2015-09-24 11:39:32', null, '2015-09-24 11:39:32');
+INSERT INTO `user_info_p` VALUES ('e17cc215-8ceb-462f-8051-f3f386d8bd89', '郭冲', '18077bdb-8dd3-4aae-95a2-078c963f8416', '2019-06-04 00:00:00', '8000.00', '2019-01-07 00:00:00', '1', '总裁', '15937687302', '0', '11', '21', null, null, '2019-06-06 10:41:08', null, '2019-06-06 10:41:08');
+INSERT INTO `user_info_p` VALUES ('ee720667-5373-4a36-996b-fded2c257f48', '王五', 'acde96ad-32e9-4c9c-8555-a90a282193a1', '2015-10-08 00:00:00', '100.00', '2015-10-27 00:00:00', '1', '演员', '32532', '4', '要向cgx学习', '12', null, null, '2015-10-30 14:50:18', null, '2015-10-30 14:50:18');
+
+-- ----------------------------
+-- Table structure for `user_p`
+-- ----------------------------
+DROP TABLE IF EXISTS `user_p`;
+CREATE TABLE `user_p` (
+  `USER_ID` varchar(40) NOT NULL,
+  `DEPT_ID` varchar(40) DEFAULT NULL,
+  `USER_NAME` varchar(50) DEFAULT NULL COMMENT '不能重复,可为中文',
+  `PASSWORD` varchar(64) DEFAULT NULL COMMENT 'shiro MD5密码32位',
+  `STATE` int(11) DEFAULT NULL COMMENT '1启用0停用',
+  `CREATE_BY` varchar(40) DEFAULT NULL COMMENT '登录人编号',
+  `CREATE_DEPT` varchar(40) DEFAULT NULL COMMENT '登录人所属部门编号',
+  `CREATE_TIME` timestamp NULL DEFAULT '2018-03-01 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `UPDATE_BY` varchar(40) DEFAULT NULL,
+  `UPDATE_TIME` timestamp NULL DEFAULT '2018-06-06 00:00:00',
+  PRIMARY KEY (`USER_ID`),
+  KEY `FK95BE28DC369F7BB8` (`DEPT_ID`),
+  CONSTRAINT `FK95BE28DC369F7BB8` FOREIGN KEY (`DEPT_ID`) REFERENCES `dept_p` (`DEPT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user_p
+-- ----------------------------
+INSERT INTO `user_p` VALUES ('002108e2-9a10-4510-9683-8d8fd1d374ef', '4028827c4fb6202a014fb6209c730000', 'lw', '054d482f7b4d3633da1969b1c5c7f70e', '1', null, null, '2015-10-18 17:00:53', null, '2015-10-18 17:00:53');
+INSERT INTO `user_p` VALUES ('18077bdb-8dd3-4aae-95a2-078c963f8416', '4028827c4fb6202a014fb6209c730000', 'lisi', '42bd4e7685cb11d3ba02716c313cb04b', '1', null, null, '2015-09-24 00:41:12', null, '2015-09-24 00:14:23');
+INSERT INTO `user_p` VALUES ('290e5d08-8992-4c7b-95fc-dbbe7b592e14', '4028827c4fb645b0014fb64668550000', 'zhaoliu', 'a33005a4ff1f4890efaee6f754259839', '1', null, null, '2015-10-30 14:51:17', null, '2015-10-30 14:51:17');
+INSERT INTO `user_p` VALUES ('424b2d01-d812-4f30-be40-dcda14110118', '4028827c4fb6202a014fb6209c730000', 'J0724', '22db00a6ab82911b95e3b58eb3bd7dd4', '1', null, null, '2015-10-21 10:47:24', null, '2015-10-21 10:47:24');
+INSERT INTO `user_p` VALUES ('671cf074-d849-4157-93e6-6024d3dcba47', '4028827c4fb645b0014fb64668550000', 'A', '91f40ee798e79cb7d4a75ecc1fec18b5', '1', null, null, '2015-09-14 09:36:37', null, '2015-09-14 09:36:37');
+INSERT INTO `user_p` VALUES ('71a5a695-0ba5-4f0d-a0b5-0a304efde944', '4028827c4fb6202a014fb6209c730000', 'J0723', 'a482e34a17bbfc6b5807cce38ac9026a', '1', null, null, '2015-10-21 10:46:29', null, '2015-10-21 10:46:29');
+INSERT INTO `user_p` VALUES ('9fe270f8-f682-4126-92aa-604d945c95f1', '4028827c4fb6202a014fb6209c730000', 'zhangsan', '654407ac2e454fe560337510aa6adb97', '1', null, null, '2015-09-24 00:41:00', null, '2015-09-24 00:13:40');
+INSERT INTO `user_p` VALUES ('a4e6e173-39dc-4b2d-a089-6eb92d117682', '4028827c4fb6202a014fb6209c730000', 'asd', '5933fcbd143b7c752d5f2967a41fd979', '1', null, null, '2015-09-24 11:41:03', null, '2015-09-24 11:41:03');
+INSERT INTO `user_p` VALUES ('ac151669-0895-4e3e-b730-71dc3f683c13', '3d00290a-1af0-4c28-853e-29fbf96a2722', '郭冲冲', '4af7a85d655dc016f6e43461249a2ef3', '1', null, null, '2019-06-06 16:23:20', null, '2019-06-06 16:23:20');
+INSERT INTO `user_p` VALUES ('acde96ad-32e9-4c9c-8555-a90a282193a0', '4028827c4fb645b0014fb64668550000', 'ajaj', 'b867f817d1be3fd65813a7cf798251ce', '1', null, null, '2015-09-12 16:44:24', null, '2015-09-11 11:42:02');
+INSERT INTO `user_p` VALUES ('acde96ad-32e9-4c9c-8555-a90a282193a1', '4028827c4fb645b0014fb64668550000', 'aa', '9ec97e6366c4339a71a08b8b805f378a', '1', null, null, '2015-09-13 15:29:22', null, '2015-12-12 00:00:00');
+INSERT INTO `user_p` VALUES ('b11c3da4-4760-4f4f-9913-78f7749ffcf9', '4028827c4fb6202a014fb6209c730000', 'J0725', '42c491bd87c7ed9ef5efdfa732665651', '1', null, null, '2015-10-21 10:48:11', null, '2015-10-21 10:48:11');
+INSERT INTO `user_p` VALUES ('b891b14b-1316-4a79-8b88-695be1e3f42f', '4028827c4fb6202a014fb6209c730000', 'aj', 'd7d57e0a542eb25ce59e667c8fc50791', '1', null, null, '2015-09-24 11:37:10', null, '2015-09-24 11:37:10');
+INSERT INTO `user_p` VALUES ('d583ce5d-49d1-4c37-b7d8-fab189e62329', '4028827c4fb645b0014fb64668550000', 'B', '66a8c64be672631a14de2989e3e52177', '1', null, null, '2015-09-14 16:35:05', null, '2015-09-14 16:35:05');
+INSERT INTO `user_p` VALUES ('e0de22fe-2c50-4216-ad75-ed0494d2dc92', '4028827c4fb6202a014fb6209c730000', 'cgx', 'e2bd4809f74129a3df82675786c2f035', '1', null, null, '2015-09-24 11:43:02', null, '2015-09-24 11:39:47');
+INSERT INTO `user_p` VALUES ('e17cc215-8ceb-462f-8051-f3f386d8bd89', '3d00290a-1af0-4c28-853e-29fbf96a2722', '郭冲冲', null, '1', null, null, '2019-06-06 10:41:08', null, '2019-06-06 10:41:08');
+INSERT INTO `user_p` VALUES ('ee720667-5373-4a36-996b-fded2c257f48', '4028827c4fb645b0014fb64668550000', 'wangwu', '4d6a8546c786edaed7ec4858bee8975c', '1', null, null, '2015-10-30 14:50:18', null, '2015-10-30 14:50:18');
